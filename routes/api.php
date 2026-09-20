@@ -26,3 +26,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // Positions
     Route::apiResource('positions', PositionController::class);
 });
+
+Route::get('/debug-check', function () {
+    return response()->json([
+        'roles' => \Spatie\Permission\Models\Role::all(),
+        'permissions' => \Spatie\Permission\Models\Permission::all(),
+        'positions' => \App\Models\Position::with('role')->get(),
+    ]);
+});
